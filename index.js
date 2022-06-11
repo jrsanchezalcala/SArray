@@ -108,5 +108,9 @@ export class ZArray extends Array{
             this.autoSortCallback = callback;
         }
     }
+
+    toArray(){
+        return Array.from(this)
+    }
    
 }
