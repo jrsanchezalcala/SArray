@@ -8,7 +8,7 @@
       filename: 'index.js',
       library: {
         type: 'umd',
-        name: 'sarray',
+        name: 'zarray',
       },
       // prevent error: `Uncaught ReferenceError: self is not define`
       globalObject: 'this'
