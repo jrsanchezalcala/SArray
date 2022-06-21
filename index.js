@@ -62,7 +62,7 @@ export class ZArray extends Array {
         let id = this.getKey(element);
         let elem = this.object[id];
         if (elem)
-            this.object[id] = element;
+            this.object[id] = Object.assign(this.object[id],element);
         else
             this.push(element);
 
