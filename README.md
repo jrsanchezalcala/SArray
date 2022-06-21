@@ -1,5 +1,5 @@
 # ZArray
-Zuper Array , and array with zuper-powers and more capabilites.
+Zuper Array , an array with zuper-powers and more capabilites.
 
 This is a zuper array designed to manage objects inside and indexing them.
 
@@ -34,13 +34,13 @@ zarray.filter(item => item.color === "red" ).map(item => item.id)
 
 ```
 
-- You can update an existing element so easy without the need to search where is the element in the array.
+- You can update an existing element so easy without need to search where is the element into the array.
 
 ```
 zarray.set({id : 2223 , "ford" , color : "black" });
 ```
 
-- You can set and autosort passing sort parator method so everytime you set or update a new item the array will be sorted automatically.
+- You can set and autosort passing a sort comparator function so everytime you set or update a new item, the array will be sorted automatically.
 
 ```
 zarray.setAutoSort((a , b) => a - b)
