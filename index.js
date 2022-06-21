@@ -1,5 +1,5 @@
-export class ZArray extends Array{
-    constructor(index,options){
+export class ZArray extends Array {
+    constructor(index, options) {
         super();
         this.index = index;
         this.options = options;
@@ -7,54 +7,61 @@ export class ZArray extends Array{
         this.initOptions();
     }
 
-    initOptions(){
-        if(!this.options)
-        return;
-        if(this.options.autosort){
+    initOptions() {
+        if (!this.options)
+            return;
+        if (this.options.autosort) {
             this.setAutoSort(this.options.autosort);
         }
     }
 
-    getKey(element){
-        if(this.index){
-            if(typeof this.index === "function")
+    getKey(element) {
+        if (this.index) {
+            if (typeof this.index === "function")
                 return this.index(element);
             else
                 return element[this.index];
         }
-            return null
+        return null
     }
 
-    push(element){
+    push(element) {
         super.push(element);
-        this.object[this.getKey(element)] = element;
+        if (this.index)
+            this.object[this.getKey(element)] = element;
         this.auto();
     }
 
-    unshift(element){
+    unshift(element) {
         super.unshift(element);
-        this.object[this.getKey(element)] = element;
+        if (this.index)
+            this.object[this.getKey(element)] = element;
         this.auto();
     }
 
-    shift(){
+    shift() {
         let element = super.shift();
-        delete this.object[this.getKey(element)]
+        if (this.index)
+            delete this.object[this.getKey(element)]
     }
 
-    pop(){
+    pop() {
         let element = super.pop()
-        delete this.object[this.getKey(element)]
+        if (this.index)
+            delete this.object[this.getKey(element)]
     }
 
-    get(id){
-        return this.object[id];
+    get(id) {
+        if (this.index)
+            return this.object[id];
+        else
+            return this[id];
     }
 
-    set(element){
+    set(element) {
         let id = this.getKey(element);
         let elem = this.object[id];
-        if(elem)
+        if (elem)
             this.object[id] = element;
         else
             this.push(element);
@@ -63,54 +70,54 @@ export class ZArray extends Array{
 
     }
 
-    remove(id){
+    remove(id) {
 
-        this.splice(this.indexOf(this.object[id]),1);
+        this.splice(this.indexOf(this.object[id]), 1);
         delete this.object[id];
     }
 
-    load(arr){
-        if ( arr && Array.isArray(arr)){
+    load(arr) {
+        if (arr && Array.isArray(arr)) {
             this._disableAuto = true;
             arr.forEach(item => this.push(item));
             this._disableAuto = false;
             this.auto();
         }
-   
+
     }
 
-    sort(args){
-        if(this.autoSortCallback){
+    sort(args) {
+        if (this.autoSortCallback) {
             super.sort(this.autoSortCallback);
         }
         else
             super.sort(args);
     }
 
-    concat(arr){
+    concat(arr) {
         this._disableAuto = true;
         arr.forEach(item => this.push(item));
         this._disableAuto = false;
         this.auto();
     }
 
-    auto(){
-        if(this._disableAuto)
-        return;
+    auto() {
+        if (this._disableAuto)
+            return;
 
-        if(this.autoSortCallback){
+        if (this.autoSortCallback) {
             this.sort()
         }
     }
 
-    setAutoSort(callback){
-        if(typeof callback === "function"){
+    setAutoSort(callback) {
+        if (typeof callback === "function") {
             this.autoSortCallback = callback;
         }
     }
 
-    toArray(){
+    toArray() {
         return Array.from(this)
     }
-   
+
 }
